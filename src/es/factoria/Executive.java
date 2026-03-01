@@ -2,23 +2,27 @@ package es.factoria;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
- * Represents an Executive worker who manages a list of Salesmen and a Secretary.
+ * Clase que representa a un ejecutivo de la factoría.
+ * Un executive tiene a su cargo varios salesmen y un secretary.
+ * Su salario = base + 2% de las ventas totales de sus salesmen.
  */
 public class Executive extends Worker {
 
-    private static final double COMISSION = 2;
-    private static final double SALARYBASE = 2500;
+    private static final double COMISSION = 2;     // 2% sobre las ventas del equipo
+    private static final double SALARYBASE = 2500; // salario base del executive
 
-    private List<Salesman> salesmen;
-    private Secretary secretary;
+    private List<Salesman> salesmen; // lista de vendedores a su cargo
+    private Secretary secretary;     // su secretario/a
 
     /**
-     * Constructor. Creates an Executive with name, address and dni.
-     * @param pName executive's name
-     * @param pAddress executive's address
-     * @param pDni executive's DNI
+     * Constructor del Executive.
+     * @param pName nombre
+     * @param pAddress dirección
+     * @param pDni DNI
      */
     public Executive(String pName, String pAddress, String pDni) {
         super(pName, pAddress, pDni);
@@ -27,22 +31,22 @@ public class Executive extends Worker {
     }
 
     /**
-     * Computes salary: base salary + floor(totalSales * COMISSION / 100).
-     * @return computed salary
+     * Calcula el salario del executive: base + floor(2% * ventas totales del equipo).
+     * Usamos stream para sumar las ventas de todos los salesmen de forma más limpia.
      */
     @Override
     public double computeSalary() {
-        double totalSales = 0;
-        for (Salesman s : salesmen) {
-            totalSales += s.getSalesMonth();
-        }
-        return getSalary() + Math.floor(totalSales * COMISSION / 100);
+        // sumamos las ventas de todos los salesmen con un stream
+        double totalVentas = salesmen.stream()
+                .mapToDouble(Salesman::getSalesMonth)
+                .sum();
+        return getSalary() + Math.floor(totalVentas * COMISSION / 100);
     }
 
     /**
-     * Adds a Salesman to this Executive's list if the Salesman has no Executive yet.
-     * @param pNewSalesman salesman to add
-     * @throws OverrideException if the salesman already has an Executive
+     * Añade un salesman al executive, pero solo si ese salesman no tiene executive ya.
+     * @param pNewSalesman el salesman a añadir
+     * @throws OverrideException si el salesman ya tiene executive asignado
      */
     public void addSalesman(Salesman pNewSalesman) throws OverrideException {
         if (pNewSalesman.hasExecutive()) {
@@ -53,9 +57,9 @@ public class Executive extends Worker {
     }
 
     /**
-     * Assigns a Secretary to this Executive if the Secretary has no Executive yet.
-     * @param pNewSecretary secretary to assign
-     * @throws OverrideException if the secretary already has an Executive
+     * Asigna un secretary al executive, solo si ese secretary no tiene executive todavía.
+     * @param pNewSecretary el secretary a asignar
+     * @throws OverrideException si el secretary ya tiene executive
      */
     public void setSecretary(Secretary pNewSecretary) throws OverrideException {
         if (pNewSecretary.hasExecutive()) {
@@ -66,19 +70,20 @@ public class Executive extends Worker {
     }
 
     /**
-     * Returns a listing of all Salesmen (and Secretary if present) of this Executive.
-     * @return formatted string listing
+     * Lista todos los trabajadores del executive (secretary primero, luego salesmen).
+     * Usamos Stream.concat para unir el stream del secretary con el de los salesmen.
+     * @return cadena con nombre, dni y dirección de cada uno
      */
     public String listWorkers() {
-        StringBuilder sb = new StringBuilder();
-        if (secretary != null) {
-            sb.append(secretary.getName()).append(" ").append(secretary.getDni())
-              .append(" ").append(secretary.getAddress()).append("\n");
-        }
-        for (Salesman s : salesmen) {
-            sb.append(s.getName()).append(" ").append(s.getDni())
-              .append(" ").append(s.getAddress()).append("\n");
-        }
-        return sb.toString();
+        // si hay secretary lo ponemos al inicio, si no stream vacío
+        Stream<Worker> streamSecretary = secretary != null
+                ? Stream.of(secretary)
+                : Stream.empty();
+
+        // concatenamos secretary + salesmen y generamos la cadena
+        String resultado = Stream.concat(streamSecretary, salesmen.stream())
+                .map(w -> w.getName() + " " + w.getDni() + " " + w.getAddress())
+                .collect(Collectors.joining("\n"));
+        return resultado.isEmpty() ? resultado : resultado + "\n";
     }
 }

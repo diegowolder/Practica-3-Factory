@@ -1,20 +1,22 @@
 package es.factoria;
 
 /**
- * Abstract class representing a Worker in the Factory.
+ * Clase abstracta que representa a un trabajador de la factoría.
+ * Todos los tipos de trabajadores heredan de esta clase.
  */
 public abstract class Worker {
 
+    // atributos del trabajador
     private String name;
     private String address;
     private String dni;
     private double salary;
 
     /**
-     * Constructor. Assigns name, address and dni.
-     * @param pName worker's name
-     * @param pAddress worker's address
-     * @param pDni worker's DNI
+     * Constructor de Worker.
+     * @param pName nombre del trabajador
+     * @param pAddress dirección del trabajador
+     * @param pDni DNI del trabajador
      */
     public Worker(String pName, String pAddress, String pDni) {
         this.name = pName;
@@ -22,29 +24,28 @@ public abstract class Worker {
         this.dni = pDni;
     }
 
-    /** @return the name of the Worker */
+    /** Devuelve el nombre del trabajador */
     public String getName() {
         return name;
     }
 
-    /** @return the DNI of the Worker */
+    /** Devuelve el DNI del trabajador */
     public String getDni() {
         return dni;
     }
 
-    /** @return the address of the Worker */
+    /** Devuelve la dirección del trabajador */
     public String getAddress() {
         return address;
     }
 
-    /** @param address new address */
+    /** Cambia la dirección (puede cambiar con el tiempo) */
     public void setAddress(String address) {
         this.address = address;
     }
 
     /**
-     * Returns a string with name, dni and address separated by commas.
-     * @return string representation
+     * Devuelve una cadena con nombre, dni y dirección separados por comas.
      */
     @Override
     public String toString() {
@@ -52,30 +53,29 @@ public abstract class Worker {
     }
 
     /**
-     * Two workers are equal if they have the same DNI.
-     * @param obj object to compare
-     * @return true if equal
+     * Dos workers son iguales si tienen el mismo DNI.
      */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (!(obj instanceof Worker)) return false;
-        Worker other = (Worker) obj;
-        return this.dni.equals(other.dni);
+        Worker otro = (Worker) obj;
+        return this.dni.equals(otro.dni);
     }
 
     /**
-     * Abstract method to compute the salary for this worker.
-     * @return computed salary
+     * Método abstracto para calcular el salario del trabajador.
+     * Cada subclase lo implementa a su manera.
+     * @return salario calculado
      */
     public abstract double computeSalary();
 
-    /** @return the base salary */
+    /** Devuelve el salario base */
     public double getSalary() {
         return salary;
     }
 
-    /** @param salary new base salary */
+    /** Establece el salario base */
     public void setSalary(double salary) {
         this.salary = salary;
     }

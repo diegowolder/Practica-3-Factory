@@ -1,13 +1,13 @@
 package es.factoria;
 
 /**
- * Exception thrown when a Worker is not found in the Factory.
+ * Excepción que se lanza cuando se busca un worker que no existe en la factoría.
  */
 public class NotFoundException extends Exception {
 
     /**
-     * Constructor.
-     * @param message error message
+     * Constructor con mensaje de error.
+     * @param message descripción del error
      */
     public NotFoundException(String message) {
         super(message);

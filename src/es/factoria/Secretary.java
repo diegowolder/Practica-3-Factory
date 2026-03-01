@@ -1,18 +1,20 @@
 package es.factoria;
 
 /**
- * Represents a Secretary worker with a fixed salary.
+ * Clase que representa a un secretario/a de la factoría.
+ * Su salario es fijo, sin comisiones.
  */
 public class Secretary extends Worker {
 
+    // el salario base del secretario es fijo: 1200€
     private static final double SALARYBASE = 1200;
-    private Executive executive;
+    private Executive executive; // el executive al que está asignado (puede ser null)
 
     /**
-     * Constructor. Creates a Secretary with name, address and dni.
-     * @param pName secretary's name
-     * @param pAddress secretary's address
-     * @param pDni secretary's DNI
+     * Constructor del Secretary.
+     * @param pName nombre
+     * @param pAddress dirección
+     * @param pDni DNI
      */
     public Secretary(String pName, String pAddress, String pDni) {
         super(pName, pAddress, pDni);
@@ -20,28 +22,24 @@ public class Secretary extends Worker {
     }
 
     /**
-     * Computes the salary for this Secretary (returns the base salary).
-     * @return salary
+     * El salario del secretario es simplemente el salario base, sin comisiones.
      */
     @Override
     public double computeSalary() {
         return getSalary();
     }
 
-    /**
-     * Sets the executive for this Secretary.
-     * @param pExecutive the executive to assign
-     */
+    /** Asigna un executive a este secretary */
     public void setExecutive(Executive pExecutive) {
         this.executive = pExecutive;
     }
 
-    /** @return the executive of this Secretary */
+    /** Devuelve el executive de este secretary */
     public Executive getExecutive() {
         return executive;
     }
 
-    /** @return true if this Secretary has an Executive assigned */
+    /** Comprueba si ya tiene executive asignado */
     public boolean hasExecutive() {
         return executive != null;
     }

@@ -1,13 +1,14 @@
 package es.factoria;
 
 /**
- * Exception thrown when a Worker is already assigned to another Executive or Factory.
+ * Excepción que se lanza cuando se intenta asignar un worker que ya
+ * pertenece a otro executive o ya está en la factoría.
  */
 public class OverrideException extends Exception {
 
     /**
-     * Constructor.
-     * @param message error message
+     * Constructor con mensaje de error.
+     * @param message descripción del error
      */
     public OverrideException(String message) {
         super(message);

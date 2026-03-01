@@ -1,21 +1,23 @@
 package es.factoria;
 
 /**
- * Represents a Salesman worker with a base salary plus sales commission.
+ * Clase que representa a un vendedor de la factoría.
+ * Su salario = salario base + comisión sobre las ventas del mes.
  */
 public class Salesman extends Worker {
 
-    private static final double COMISSION = 5;
-    private static final double SALARYBASE = 1300;
+    // constantes del salesman
+    private static final double COMISSION = 5;    // 5% de comisión sobre ventas
+    private static final double SALARYBASE = 1300; // salario base fijo
 
-    private double salesMonth;
-    private Executive executive;
+    private double salesMonth; // total de ventas del mes actual
+    private Executive executive; // executive responsable de este salesman
 
     /**
-     * Constructor. Creates a Salesman with name, address and dni.
-     * @param pName salesman's name
-     * @param pAddress salesman's address
-     * @param pDni salesman's DNI
+     * Constructor del Salesman.
+     * @param pName nombre
+     * @param pAddress dirección
+     * @param pDni DNI
      */
     public Salesman(String pName, String pAddress, String pDni) {
         super(pName, pAddress, pDni);
@@ -24,8 +26,7 @@ public class Salesman extends Worker {
     }
 
     /**
-     * Computes salary: base salary + floor(salesMonth * COMISSION / 100).
-     * @return computed salary
+     * Calcula el salario: base + floor(ventas * 5 / 100)
      */
     @Override
     public double computeSalary() {
@@ -33,37 +34,34 @@ public class Salesman extends Worker {
     }
 
     /**
-     * Adds a new sale amount to this month's total.
-     * @param pSale amount of the new sale
+     * Añade una venta al total del mes.
+     * @param pSale importe de la venta
      */
     public void newSale(double pSale) {
-        this.salesMonth += pSale;
+        salesMonth += pSale;
     }
 
-    /** @return total sales this month */
+    /** Devuelve el total de ventas del mes */
     public double getSalesMonth() {
         return salesMonth;
     }
 
-    /** Resets monthly sales to zero (new month). */
+    /** Cambia de mes: resetea las ventas a 0 */
     public void changeMonth() {
-        this.salesMonth = 0;
+        salesMonth = 0;
     }
 
-    /**
-     * Sets the executive for this Salesman.
-     * @param pExecutive the executive to assign
-     */
+    /** Asigna el executive responsable */
     public void setExecutive(Executive pExecutive) {
         this.executive = pExecutive;
     }
 
-    /** @return the executive of this Salesman */
+    /** Devuelve el executive de este salesman */
     public Executive getExecutive() {
         return executive;
     }
 
-    /** @return true if this Salesman has an Executive assigned */
+    /** Comprueba si ya tiene executive asignado */
     public boolean hasExecutive() {
         return executive != null;
     }
