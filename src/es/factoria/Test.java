@@ -1,5 +1,11 @@
 package es.factoria;
 
+/**
+ * Clase principal para probar el funcionamiento de la factoría.
+ *
+ * @author Diego A.
+ * @version 1.0
+ */
 public class Test {
     public static void main(String[] args) throws OverrideException {
         // Crear la Factory

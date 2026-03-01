@@ -3,6 +3,9 @@ package es.factoria;
 /**
  * Clase abstracta que representa a un trabajador de la factoría.
  * Todos los tipos de trabajadores heredan de esta clase.
+ *
+ * @author Diego A.
+ * @version 1.0
  */
 public abstract class Worker {
 

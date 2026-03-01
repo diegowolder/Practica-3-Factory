@@ -3,6 +3,9 @@ package es.factoria;
 /**
  * Clase que representa a un vendedor de la factoría.
  * Su salario = salario base + comisión sobre las ventas del mes.
+ *
+ * @author Diego A.
+ * @version 1.0
  */
 public class Salesman extends Worker {
 

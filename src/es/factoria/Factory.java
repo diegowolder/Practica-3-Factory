@@ -7,6 +7,9 @@ import java.util.stream.Collectors;
 /**
  * Clase que representa la factoría.
  * Gestiona una lista de todos los trabajadores y permite listar sus salarios.
+ *
+ * @author Diego A.
+ * @version 1.0
  */
 public class Factory {
 

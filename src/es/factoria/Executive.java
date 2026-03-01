@@ -9,6 +9,9 @@ import java.util.stream.Stream;
  * Clase que representa a un ejecutivo de la factoría.
  * Un executive tiene a su cargo varios salesmen y un secretary.
  * Su salario = base + 2% de las ventas totales de sus salesmen.
+ *
+ * @author Diego A.
+ * @version 1.0
  */
 public class Executive extends Worker {
 

@@ -3,6 +3,9 @@ package es.factoria;
 /**
  * Clase que representa a un secretario/a de la factoría.
  * Su salario es fijo, sin comisiones.
+ *
+ * @author Diego A.
+ * @version 1.0
  */
 public class Secretary extends Worker {
 
